@@ -30,7 +30,7 @@ class Book(models.Model):
     title = models.CharField(max_length=255)
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True)
     summary = models.CharField(max_length=1023, help_text='Book summary')
-    isbn = models.CharField('ISBN', max_length=13, help_text='13 character <a href="https://www.isbn-international.org/content/what-isbn">ISBN number')
+    isbn = models.CharField('ISBN', max_length=13, help_text='13 character ISBN number')
     genre = models.ManyToManyField(Genre, help_text='Select book genre')
 
     def __str__(self):
@@ -38,6 +38,11 @@ class Book(models.Model):
 
     def get_absolute_url(self):
         return reverse('book-detail', args=[str(self.id)])
+
+    def display_genre(self):
+        return ', '.join(genre.name for genre in self.genre.all()[:2])
+
+    display_genre.short_description = 'Genre'
 
 
 class BookInstance(models.Model):
