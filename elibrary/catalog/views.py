@@ -6,6 +6,8 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 from .models import Book, BookInstance, Author, Genre
 from .forms import RenewBookModelForm
 
@@ -93,3 +95,23 @@ def renew_book_librarian(request, pk):
     }
 
     return render(request, 'catalog/book_renew_librarian.html', context)
+
+
+class AuthorCreateView(CreateView, PermissionRequiredMixin):
+    model = Author
+    fields = '__all__'
+    initial = {'date_of_death': '01/01/2019'}
+    permission_required = 'catalog.can_mark_returned'
+
+
+class AuthorUpdateView(UpdateView, PermissionRequiredMixin):
+    model = Author
+    fields = '__all__'
+    template_name = 'catalog/author_update.html'
+    permission_required = 'catalog.can_mark_returned'
+
+
+class AuthorDeleteView(DeleteView, PermissionRequiredMixin):
+    model = Author
+    permission_required = 'catalog.can_mark_returned'
+    success_url = reverse_lazy('authors')

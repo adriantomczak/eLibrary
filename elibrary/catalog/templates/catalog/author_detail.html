@@ -5,6 +5,10 @@
     <h1>Author: {{ author.last_name }}, {{ author.first_name }}</h1>
     <p>{{ author.date_of_birth }} - {{ author.date_of_death }}</p>
 
+    {% if user.is_staff %}
+        <a href="{% url 'author-update' author.pk %}"><button class="btn btn-info">Update</button></a>
+        <a href="{% url 'author-delete' author.pk %}"><button class="btn btn-danger">Delete</button></a>
+    {% endif %}
 
     <div style="margin-left:20px;margin-top:20px">
         <h4>Books</h4>
