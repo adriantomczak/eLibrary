@@ -115,3 +115,22 @@ class AuthorDeleteView(DeleteView, PermissionRequiredMixin):
     model = Author
     permission_required = 'catalog.can_mark_returned'
     success_url = reverse_lazy('authors')
+
+
+class BookCreateView(CreateView, PermissionRequiredMixin):
+    model = Book
+    fields = '__all__'
+    permission_required = 'catalog.can_mark_returned'
+
+
+class BookUpdateView(UpdateView, PermissionRequiredMixin):
+    model = Book
+    fields = '__all__'
+    template_name = 'catalog/book_update.html'
+    permission_required = 'catalog.can_mark_returned'
+
+
+class BookDeleteView(DeleteView, PermissionRequiredMixin):
+    model = Book
+    permission_required = 'catalog.can_mark_returned'
+    success_url = reverse_lazy('books')

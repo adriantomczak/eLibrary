@@ -31,9 +31,9 @@ class Genre(models.Model):
 class Book(models.Model):
     title = models.CharField(max_length=255)
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True)
-    summary = models.CharField(max_length=1023, help_text='Book summary')
+    summary = models.TextField(max_length=1023, help_text='Book brief summary')
     isbn = models.CharField('ISBN', max_length=13, help_text='13 character ISBN number')
-    genre = models.ManyToManyField(Genre, help_text='Select book genre')
+    genre = models.ManyToManyField(Genre, help_text='Select book genre (hold ctrl too select multiple)')
 
     def __str__(self):
         return self.title

@@ -9,6 +9,11 @@
     <p><strong>ISBN:</strong> {{ book.isbn }}</p>
     <p><strong>Genre:</strong> {% for genre in book.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
 
+    {% if user.is_staff %}
+        <a href="{% url 'book-update' book.pk %}"><button class="btn btn-info">Update</button></a>
+        <a href="{% url 'book-delete' book.pk %}"><button class="btn btn-danger">Delete</button></a>
+    {% endif %}
+
     <div style="margin-left:20px;margin-top:20px">
         <h4>Copies</h4>
 
