@@ -100,7 +100,7 @@ def renew_book_librarian(request, pk):
 class AuthorCreateView(CreateView, PermissionRequiredMixin):
     model = Author
     fields = '__all__'
-    initial = {'date_of_death': '01/01/2019', 'date_of_birth': '01/01/2000'}
+    initial = {'date_of_death': '01/01/2019'}
     permission_required = 'catalog.can_mark_returned'
 
 
